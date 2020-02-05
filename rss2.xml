@@ -9,14 +9,37 @@
     <atom:link href="/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Sun, 02 Feb 2020 08:56:33 GMT</pubDate>
+    <pubDate>Wed, 05 Feb 2020 12:16:20 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
+      <title>使用hexo搭建博客</title>
+      <link>https://marwincn.github.io/blog/2020/02/05/hexo/</link>
+      <guid>https://marwincn.github.io/blog/2020/02/05/hexo/</guid>
+      <pubDate>Wed, 05 Feb 2020 12:13:41 GMT</pubDate>
+      <description>
+      
+        
+        
+          
+          
+            
+          
+        
+      
+      </description>
+      
+      
+      <content:encoded><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>本来在自己的vps上自己写了一个博客，但是很多地方需要自己不断维护，自己写的前端也不太满意所以决定用框架搭一个静态博客部署在github page上，这样也省了在vps上到处迁移。</p><p>我选择了人气比较高的Hexo，记录一下自己搭建的过程，作为官方文档的整理和补充。</p><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>首先确认电脑里有git和npm （安装node.js即可）的支持，以下为macOS上使用homebrew安装，其他安装方式参考搜索引擎。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 安装git</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> brew install git</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装node.js</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> brew install node</span></span><br></pre></td></tr></table></figure><h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm install -g hexo-cli</span></span><br></pre></td></tr></table></figure><p>安装后可以使用hexo命令行，命令文档：<a href="https://hexo.io/zh-cn/docs/commands" target="_blank" rel="noopener">文档</a>。</p><h3 id="新建项目"><a href="#新建项目" class="headerlink" title="新建项目"></a>新建项目</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> hexo init &lt;folder&gt;</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> &lt;folder&gt;</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> npm install</span></span><br></pre></td></tr></table></figure><p>新建完成后，指定文件夹的目录如下：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── _config.yml     //项目配置文件</span><br><span class="line">├── package.json    //应用程序的信息</span><br><span class="line">├── scaffolds       //模版文件夹</span><br><span class="line">├── source          //存放用户资源和md文件的地方</span><br><span class="line">|   ├── _drafts</span><br><span class="line">|   └── _posts</span><br><span class="line">└── themes          //主题文件夹</span><br></pre></td></tr></table></figure><p>修改<code>_config.yml</code>为自己的信息，参考配置文档：<a href="https://hexo.io/zh-cn/docs/configuration" target="_blank" rel="noopener">文档</a>。</p><h3 id="安装主题"><a href="#安装主题" class="headerlink" title="安装主题"></a>安装主题</h3><p>建立项目后，第一件事可能是找一个喜欢的主题，在<a href="https://hexo.io/themes/" target="_blank" rel="noopener">主题市场</a>找到自己满意的主题进行接下来的安装，当然也可以自己写一个主题。</p><p>找到选好的主题的github项目，将其clone到你新建的项目的themes目录下，这里的默认的一个主题是landscape。修改项目根目录下的<code>_config.yml</code>（项目配置文件，一般主题目录下也有一个<code>_config.yml</code>，请勿混淆），theme的值改为刚才clone的主题名称。到这里就可以将主题应用到项目上，其他配置参考每个主题的文档。</p><h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>根据github的规定，仓库名为<code>&lt;your github name&gt;.github.io</code>时默认该仓库的master分支为github page部署分支，此时页面的url为<code>https://&lt;your github name&gt;.github.io/index.html</code>。而其他命名的仓库可以指定一个分支，如gh-pages作为github page部署分支，此时页面的url为<code>https://&lt;your github name&gt;.github.io/repositorie-name/index.html</code>。</p><p>由于这种差异，可以有两种部署方式。一是将hexo项目在本地渲染静态页面，然后push到远程；二是将项目代码同步到github仓库，使用CI将远程渲染后的结果发布到gh-pages分支。</p><h3 id="本地渲染"><a href="#本地渲染" class="headerlink" title="本地渲染"></a>本地渲染</h3><p>由于是部署到github page，所以使用git发布到远程。按照文档，可以使用SFTP等方式发布到自己的服务器上，也可以设置多个发布地址，按顺序发布。</p><p>安装hexo-deployer-git：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm install hexo-deployer-git --save</span></span><br></pre></td></tr></table></figure><p>修改<code>_config.yml</code>的参数：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: &lt;repository url&gt; #git@github.com:xxxx/xxxx.github.io.git</span><br><span class="line">  branch: [branch]</span><br><span class="line">  message: [message]</span><br></pre></td></tr></table></figure><p>需要提前将本地ssh pubkey添加到github的<code>SSH keys</code>里，作为push命令的身份认证。然后只需一条命令就能将网站部署到服务器上：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> hexo clean &amp;&amp; hexo deploy <span class="comment"># clean渲染，delpoy部署</span></span></span><br></pre></td></tr></table></figure><h3 id="远程渲染"><a href="#远程渲染" class="headerlink" title="远程渲染"></a>远程渲染</h3><p>参考官方文档：<a href="https://hexo.io/zh-cn/docs/github-pages" target="_blank" rel="noopener">github-pages</a></p>]]></content:encoded>
+      
+      <comments>https://marwincn.github.io/blog/2020/02/05/hexo/#disqus_thread</comments>
+    </item>
+    
+    <item>
       <title>Hello World</title>
-      <link>https://marwincn.github.io/blog/2020/02/02/hello-world/</link>
-      <guid>https://marwincn.github.io/blog/2020/02/02/hello-world/</guid>
-      <pubDate>Sun, 02 Feb 2020 08:56:33 GMT</pubDate>
+      <link>https://marwincn.github.io/blog/2020/02/03/hello-world/</link>
+      <guid>https://marwincn.github.io/blog/2020/02/03/hello-world/</guid>
+      <pubDate>Sun, 02 Feb 2020 16:00:00 GMT</pubDate>
       <description>
       
         
@@ -32,7 +55,7 @@
       
       <content:encoded><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content:encoded>
       
-      <comments>https://marwincn.github.io/blog/2020/02/02/hello-world/#disqus_thread</comments>
+      <comments>https://marwincn.github.io/blog/2020/02/03/hello-world/#disqus_thread</comments>
     </item>
     
   </channel>
